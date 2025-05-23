@@ -1,0 +1,11 @@
+{
+  "install.h1": "Superuser",
+
+  "create.h1": "Nová tabulka",
+  
+  "form.name": "Jméno",
+  "form.username": "Přihlašovací jméno",
+  "form.password": "Heslo",
+  "form.register": "Registrovat",
+  "form.login": "Přihlásit"
+}
