@@ -5,20 +5,20 @@
       
       <div class="modal-content relative transform overflow-hidden rounded-lg bg-gray-100 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
         <div class="bg-gray-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <!-- COLUMN TYPES -->
-          <div class="column-types columns-2">
-            <div class="column-type bg-white hover:shadow-sm" data-type="text">Text</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="textarea">Textarea</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="number">Number</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="select">Select</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="radio">Radio</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="checkbox">Checkbox</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="image">Image</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="gallery">Gallery</div>
-            <div class="column-type bg-white hover:shadow-sm" data-type="file">File</div>
-          </div>
-           <!-- COLUMN PARAMS -->
-          <form method="post" class="column-params" style="display: none" data-type="text">
+            <!-- COLUMN TYPES -->
+            <div class="column-types columns-2">
+              <div class="column-type bg-white hover:shadow-sm" data-type="text">Text</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="textarea">Textarea</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="number">Number</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="select">Select</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="radio">Radio</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="checkbox">Checkbox</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="image">Image</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="gallery">Gallery</div>
+              <div class="column-type bg-white hover:shadow-sm" data-type="file">File</div>
+            </div>
+            <!-- COLUMN PARAMS -->
+            <form method="post" class="column-params" style="display: none" data-type="text">
               <input type="hidden" name="type" value="text" />
               <div class="grid grid-cols-2 gap-4">
                 <?=Template::getInput('text', 'name', 'Name', '', true)?>
@@ -27,7 +27,7 @@
               <div class="w-full text-right">
                 <button class="mt-4 green" type="submit">Potvrdit</button>
               </div>
-          </form>
+            </form>
         </div>
         
       </div>
@@ -39,14 +39,15 @@
 <script>
 $(function(){
 
-  const columns = [];
-
   $('form.column-params').submit(function(e){
     e.preventDefault();
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     columns.push(data);
-    //console.log(JSON.stringify(columns));
+    
+    $('input:not([name="type"])').val('');
+    $('.column-params').hide();
+    $('.column-types').show();
   })
 
   $('.add-column').click(function(){
