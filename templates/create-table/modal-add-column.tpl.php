@@ -43,9 +43,15 @@ $(function(){
     e.preventDefault();
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
-    columns.push(data);
+    //columns.push(data);
+
+    console.log('posting...');
+    var post = $.post( "", { column_data: data } );
+    post.done(function(response){
+      $('.columns').append(response);
+    });
     
-    $('input:not([name="type"])').val('');
+    $('#modal-add-column input:not([name="type"])').val('');
     $('.column-params').hide();
     $('.column-types').show();
   })
