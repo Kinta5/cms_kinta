@@ -48,7 +48,7 @@ class StructureModel extends BaseModel {
       ");
 
       dibi::query("
-         CREATE TABLE IF NOT EXISTS cms_tables (
+         CREATE TABLE IF NOT EXISTS cms_pages (
                id INT AUTO_INCREMENT PRIMARY KEY,
                table_id INT NOT NULL,
                content TEXT NULL,
