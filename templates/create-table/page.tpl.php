@@ -2,8 +2,9 @@
    <h1><?=$t['create.h1']?></h1>
    <hr class="my-4" />
    <form method="POST" action="">
-      <div class="grid grid-cols-2 gap-8">
+      <div class="grid grid-cols-3 gap-8">
          <?=Template::getInput('text', 'name', 'Název', '', true)?>
+         <?=Template::getInput('text', 'label', 'Label', '', true)?>
          <?=Template::getSelect('type', 'Typ', ['page' => 'Stránka', 'table' => 'Tabulka'], '', true)?>
       </div>
       <button type="button" class="add-column my-4">Přidat sloupec</button>
@@ -15,13 +16,11 @@
 </div>
 
 <script>
-const columns = [];
+
 
 $(function(){
 
-   $('.create-table').click(function(){
-      console.log(columns);
-   })
+   
 })
 </script>
 

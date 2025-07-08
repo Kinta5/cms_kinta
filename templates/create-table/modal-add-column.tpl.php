@@ -17,12 +17,48 @@
               <div class="column-type bg-white hover:shadow-sm" data-type="gallery">Gallery</div>
               <div class="column-type bg-white hover:shadow-sm" data-type="file">File</div>
             </div>
-            <!-- COLUMN PARAMS -->
+            <!-- INPUT TEXT -->
             <form method="post" class="column-params" style="display: none" data-type="text">
               <input type="hidden" name="type" value="text" />
               <div class="grid grid-cols-2 gap-4">
                 <?=Template::getInput('text', 'name', 'Name', '', true)?>
                 <?=Template::getInput('text', 'label', 'Label', '', true)?>
+              </div>
+              <div class="w-full text-right">
+                <button class="mt-4 green" type="submit">Potvrdit</button>
+              </div>
+            </form>
+            <!-- INPUT TEXTAREA -->
+            <form method="post" class="column-params" style="display: none" data-type="textarea">
+              <input type="hidden" name="type" value="textarea" />
+              <div class="grid grid-cols-2 gap-4">
+                <?=Template::getInput('text', 'name', 'Name', '', true)?>
+                <?=Template::getInput('text', 'label', 'Label', '', true)?>
+              </div>
+              <div class="w-full text-right">
+                <button class="mt-4 green" type="submit">Potvrdit</button>
+              </div>
+            </form>
+            <!-- INPUT NUMBER -->
+            <form method="post" class="column-params" style="display: none" data-type="number">
+              <input type="hidden" name="type" value="number" />
+              <div class="grid grid-cols-2 gap-4">
+                <?=Template::getInput('text', 'name', 'Name', '', true)?>
+                <?=Template::getInput('text', 'label', 'Label', '', true)?>
+                <?=Template::getSelect('type', 'Typ', ['int'=>'int', 'decimal'=>'decimal', 'float'=>'float', 'double'=>'double'], '', true)?>
+                <?=Template::getInput('text', 'length', 'Délka/Množina', '', true)?>
+              </div>
+              <div class="w-full text-right">
+                <button class="mt-4 green" type="submit">Potvrdit</button>
+              </div>
+            </form>
+            <!-- SELECT -->
+            <form method="post" class="column-params" style="display: none" data-type="select">
+              <input type="hidden" name="type" value="select" />
+              <div class="grid grid-cols-2 gap-4">
+                <?=Template::getInput('text', 'name', 'Name', '', true)?>
+                <?=Template::getInput('text', 'label', 'Label', '', true)?>
+                <?=Template::getInput('text', 'values', 'Hodnoty (;)', '', true)?>
               </div>
               <div class="w-full text-right">
                 <button class="mt-4 green" type="submit">Potvrdit</button>
@@ -39,13 +75,12 @@
 <script>
 $(function(){
 
+  // Přidání nového sloupce (FORM)
   $('form.column-params').submit(function(e){
     e.preventDefault();
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
-    //columns.push(data);
-
-    console.log('posting...');
+    
     var post = $.post( "", { column_data: data } );
     post.done(function(response){
       $('.columns').append(response);
@@ -56,8 +91,16 @@ $(function(){
     $('.column-types').show();
   })
 
+  // Otevřít modal s datovými typy
   $('.add-column').click(function(){
     $('#modal-add-column').show();
+  })
+
+  // Zobrazení vstupů pro daný datový typ
+  $('.column-types .column-type').click(function(){
+    const type = $(this).data('type');
+    $(`.column-types`).hide();
+    $(`.column-params[data-type='${type}']`).show();
   })
 
   // zavření klávesou ESC
@@ -67,10 +110,5 @@ $(function(){
     }
   });
 
-  $('.column-types .column-type').click(function(){
-    const type = $(this).data('type');
-    $(`.column-types`).hide();
-    $(`.column-params[data-type='${type}']`).show();
-  })
 })
 </script>

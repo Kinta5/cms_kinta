@@ -11,9 +11,13 @@ if(isset($_POST['column_data'])) {
 }
 
 /* FORM */
-if(isset($_POST['column'])) {
-   var_dump($_POST);
-}
+/*if(isset($_POST['column'])) {
+   $table_id = $model->addTable($_POST['name'], $_POST['label'], $_POST['type']);
+   $model->addColumns($table_id, $_POST['column']);
+   $model->createTable($table_id);
+}*/
+
+$model->createTable(1);
 
 include 'templates/header.tpl.php';
 include 'templates/create-table/page.tpl.php';
