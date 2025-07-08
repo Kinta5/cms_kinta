@@ -98,10 +98,11 @@ class StructureModel extends BaseModel {
    }
 
    public function createTable($table_id) {
-
+      // Get table name + columns
       $table = dibi::fetch("SELECT * FROM cms_tables WHERE id=?", $table_id);
       $columns = dibi::fetchAll("SELECT * FROM cms_columns WHERE table_id=?", $table_id);
 
+      // Loop columns
       $sql = "CREATE TABLE `{$table->name}` ( `id` int(11) NOT NULL,";
       foreach($columns as $column) {
          $length = '';
@@ -110,9 +111,8 @@ class StructureModel extends BaseModel {
       }
       $sql = rtrim($sql, ',');
       $sql .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
-      echo $sql;
-      echo "<br><br>";
-
+      
+      // Run SQL + add PK
       dibi::query($sql);
       dibi::query("ALTER TABLE `{$table->name}` ADD PRIMARY KEY (`id`);");
       dibi::query("ALTER TABLE `{$table->name}` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
